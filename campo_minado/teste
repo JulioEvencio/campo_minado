@@ -215,6 +215,7 @@ void colocar_imagens_na_matriz(int bomba, int x, int y, int comp, int alt)
     }
     if(bomba == 9)
     {
+        printf("Bomba %d \n", bomba);
         //  Bomba
         SDL_Rect bomba_img = {x, y, comp, alt};
         SDL_RenderCopy(tela, mina, NULL, &bomba_img);
@@ -274,3 +275,4 @@ void colocar_imagens_na_matriz(int bomba, int x, int y, int comp, int alt)
         SDL_RenderCopy(tela, oito, NULL, &oito_img);
     }
 }
+
