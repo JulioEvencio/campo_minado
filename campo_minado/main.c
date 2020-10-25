@@ -21,12 +21,22 @@ int M[10][10];
 void graficos(void);
 void logica(void);
 void desenhar_campo_minado(void);
+void carregar_imagem(void);
 int preencher_matriz(void);
 
 //  Variaveis SDL
 SDL_Window *janela = NULL;
 SDL_Renderer *tela = NULL;
 SDL_Surface *imagem = NULL;
+SDL_Texture *zero = NULL;
+SDL_Texture *um = NULL;
+SDL_Texture *dois = NULL;
+SDL_Texture *tres = NULL;
+SDL_Texture *quatro = NULL;
+SDL_Texture *cinco = NULL;
+SDL_Texture *seis = NULL;
+SDL_Texture *sete = NULL;
+SDL_Texture *oito = NULL;
 
 SDL_Event evento;
 
@@ -117,6 +127,55 @@ void desenhar_campo_minado(void)
             SDL_RenderFillRect(tela, &quadrado);
         }
     }
+}
+
+//  Funcao que pega as imagens dos arquivos e as colocam em variaveis usaveis para o programa
+void carregar_imagem(void)
+{
+    //  Zero
+    imagem = IMG_Load("imagem/zero.png");
+    zero = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
+
+    //  Um
+    imagem = IMG_Load("imagem/um.png");
+    um = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
+
+    //  Dois
+    imagem = IMG_Load("imagem/dois.png");
+    dois = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
+
+    //  Tres
+    imagem = IMG_Load("imagem/tres.png");
+    tres = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
+
+    //  Quatro
+    imagem = IMG_Load("imagem/quatro.png");
+    quatro = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
+
+    //  Cinco
+    imagem = IMG_Load("imagem/cinco.png");
+    cinco = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
+
+    //  Seis
+    imagem = IMG_Load("imagem/seis.png");
+    seis = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
+
+    //  Sete
+    imagem = IMG_Load("imagem/sete.png");
+    sete = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
+
+    //  Oito
+    imagem = IMG_Load("imagem/oito.png");
+    oito = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
 }
 
 //  Funcao que preenche a matriz do campo minado
