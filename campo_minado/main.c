@@ -23,6 +23,7 @@ void logica(void);
 void desenhar_campo_minado(void);
 void carregar_imagem(void);
 int preencher_matriz(void);
+void colocar_imagens_na_matriz(int bomba, int x, int y, int comp, int alt);
 
 //  Variaveis SDL
 SDL_Window *janela = NULL;
@@ -37,6 +38,7 @@ SDL_Texture *cinco = NULL;
 SDL_Texture *seis = NULL;
 SDL_Texture *sete = NULL;
 SDL_Texture *oito = NULL;
+SDL_Texture *mina = NULL;
 
 SDL_Event evento;
 
@@ -207,4 +209,69 @@ int preencher_matriz(void)
         }
     }
     return bombas;
+}
+
+//  Pintando imagens no campo minado
+void colocar_imagens_na_matriz(int bomba, int x, int y, int comp, int alt)
+{
+    if(bomba == 9)
+    {
+        //  Bomba
+        SDL_Rect bomba_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, mina, NULL, &bomba_img);
+    }
+    if(bomba == 0)
+    {
+        //  Zero
+        SDL_Rect zero_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, zero, NULL, &zero_img);
+    }
+    if(bomba == 1)
+    {
+        //  Um
+        SDL_Rect um_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, um, NULL, &um_img);
+    }
+    if(bomba == 2)
+    {
+        //  Dois
+        SDL_Rect dois_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, dois, NULL, &dois_img);
+    }
+    if(bomba == 3)
+    {
+        //  tres
+        SDL_Rect tres_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, tres, NULL, &tres_img);
+    }
+    if(bomba == 4)
+    {
+        //  Quatro
+        SDL_Rect quatro_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, quatro, NULL, &quatro_img);
+    }
+    if(bomba == 5)
+    {
+        //  Cinco
+        SDL_Rect cinco_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, cinco, NULL, &cinco_img);
+    }
+    if(bomba == 6)
+    {
+        //  Seis
+        SDL_Rect seis_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, seis, NULL, &seis_img);
+    }
+    if(bomba == 7)
+    {
+        //  Sete
+        SDL_Rect sete_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, sete, NULL, &sete_img);
+    }
+    if(bomba == 8)
+    {
+        //  Oito
+        SDL_Rect oito_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, oito, NULL, &oito_img);
+    }
 }
