@@ -1,6 +1,7 @@
 # Campo Minado
  ### O que é?
- Campo minado é um popular jogo de computador para um jogador. Foi inventado por Robert Donner em 1989 e tem como objectivo revelar um campo de minas sem que alguma seja detonada. *Fonte: WikiPedia*
+ "Campo minado é um popular jogo de computador para um jogador. Foi inventado por Robert Donner em 1989 e tem como objectivo revelar um campo de minas sem que alguma seja detonada."
+ *Fonte: WikiPedia*
  
  Este é um programa simples do jogo campo minado usando a biblioteca SDL 2
  
