@@ -13,10 +13,14 @@ const int comprimento = 640;
 const int altura = 640;
 bool loop = true;
 
+//  Matriz do campo minado
+int Matriz[10][10];
+
 //  Funcoes
 void carregar_imagem(void);
 void logica(void);
 void graficos(void);
+int preencher_matriz(void);
 
 //  Variaveis SDl
 SDL_Window *janela = NULL;
@@ -38,6 +42,11 @@ SDL_Event evento;
 
 int main()
 {
+    //  Definindo semente para a funcao rand
+    srand(time(NULL));
+    //  preenchendo a matriz do campo minado
+    preencher_matriz();
+
     //  Iniciando SDL e SDL IMAGE
     SDL_Init(SDL_INIT_VIDEO);
     IMG_Init(IMG_INIT_PNG);
@@ -152,4 +161,33 @@ void graficos(void)
 
     //  Atualizando tela
     SDL_RenderPresent(tela);
+}
+
+//  Funcao que preenche a matriz do campo minado para que ela possa ser jogavel
+int preencher_matriz(void)
+{
+    int linha, coluna, bombas = 0;
+    for(linha = 0; linha < 10; linha++)
+    {
+        for(coluna = 0; coluna < 10; coluna++)
+        {
+            if((linha == 0 || linha == 9) || (coluna == 0 || coluna == 9))
+            {
+                Matriz[linha][coluna] = -1;
+            }
+            else
+            {
+                if((rand() % 10) % 2 == 0)
+                {
+                    Matriz[linha][coluna] = 9;
+                    bombas++;
+                }
+                else
+                {
+                    Matriz[linha][coluna] = 0;
+                }
+            }
+        }
+    }
+    return bombas;
 }
