@@ -21,6 +21,8 @@ void carregar_imagem(void);
 void logica(void);
 void graficos(void);
 int preencher_matriz(void);
+void pintar_matriz(void);
+void pintar_imagens(int matriz, int x, int y, int comp, int alt);
 
 //  Variaveis SDl
 SDL_Window *janela = NULL;
@@ -155,9 +157,8 @@ void graficos(void)
     SDL_SetRenderDrawColor(tela, 0, 0, 0, 0);
     SDL_RenderClear(tela);
 
-    //  Pintando o zero na tela
-    SDL_Rect zero_img = {50, 50, 100, 100};
-    SDL_RenderCopy(tela, cinco, NULL, &zero_img);
+    //  Pintando matriz na tela
+    pintar_matriz();
 
     //  Atualizando tela
     SDL_RenderPresent(tela);
@@ -190,4 +191,42 @@ int preencher_matriz(void)
         }
     }
     return bombas;
+}
+
+//  Funcao que pinta a matriz na tela usando imagens
+void pintar_matriz(void)
+{
+    int linha, coluna, quadrado_x, quadrado_y;
+    int quadrado_comp = (comprimento / 10), quadrado_alt = (altura / 10);
+    for(linha = 0; linha < 10; linha++)
+    {
+        for(coluna = 0; coluna < 10; coluna++)
+        {
+            quadrado_x = coluna * quadrado_comp;
+            quadrado_y = linha * quadrado_alt;
+            pintar_imagens(Matriz[linha][coluna], quadrado_x, quadrado_y, quadrado_comp, quadrado_alt);
+        }
+    }
+}
+
+//  Funcao auxiliar para pintar o campo minado na tela
+void pintar_imagens(int matriz, int x, int y, int comp, int alt)
+{
+    //  Borda
+    if(matriz == -1)
+    {
+        //  Code
+    }
+    //  Bombas
+    if(matriz == 9)
+    {
+        SDL_Rect bomba_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, bomba, NULL, &bomba_img);
+    }
+    //  Numero 0
+    if(matriz == 0)
+    {
+        SDL_Rect zero_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, zero, NULL, &zero_img);
+    }
 }
