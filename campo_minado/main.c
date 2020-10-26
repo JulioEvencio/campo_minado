@@ -189,13 +189,14 @@ int preencher_matriz(void)
     {
         for(coluna = 0; coluna < 10; coluna++)
         {
-            Matriz_auxiliar[linha][coluna] = -1;
             if((linha == 0 || linha == 9) || (coluna == 0 || coluna == 9))
             {
                 Matriz[linha][coluna] = -1;
+                Matriz_auxiliar[linha][coluna] = -1;
             }
             else
             {
+                Matriz_auxiliar[linha][coluna] = -2;
                 if((rand() % 10) % 2 == 0)
                 {
                     Matriz[linha][coluna] = 9;
@@ -230,6 +231,13 @@ void pintar_matriz(void)
 //  Funcao auxiliar para pintar o campo minado na tela
 void pintar_imagens(int matriz, int x, int y, int comp, int alt)
 {
+    //  Parte de dentro invisivel
+    if(matriz == -2)
+    {
+        SDL_SetRenderDrawColor(tela, 223, 223, 223, 255);
+        SDL_Rect quadrado = {x, y, comp, alt};
+        SDL_RenderFillRect(tela, &quadrado);
+    }
     //  Borda
     if(matriz == -1)
     {
