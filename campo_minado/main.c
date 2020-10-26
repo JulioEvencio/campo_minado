@@ -14,6 +14,8 @@ const int altura = 640;
 bool loop = true;
 int linha_mouse;
 int coluna_mouse;
+int linha_mov;
+int coluna_mov;
 
 //  Matriz do campo minado
 int Matriz[10][10];
@@ -78,6 +80,12 @@ int main()
             if(evento.type == SDL_QUIT)
             {
                 loop = false;
+            }
+            //  Verificando se o mouse foi movido
+            if(evento.type == SDL_MOUSEMOTION)
+            {
+                coluna_mov = evento.motion.x / (comprimento / 10);
+                linha_mov = evento.motion.y / (altura / 10);
             }
             //  Verificando se o usuario clicou
             if(evento.type == SDL_MOUSEBUTTONDOWN)
@@ -196,7 +204,6 @@ int preencher_matriz(void)
             }
             else
             {
-                Matriz_auxiliar[linha][coluna] = -2;
                 if((rand() % 10) % 2 == 0)
                 {
                     Matriz[linha][coluna] = 9;
@@ -205,6 +212,15 @@ int preencher_matriz(void)
                 else
                 {
                     Matriz[linha][coluna] = 0;
+                }
+                //  Quatriculando parte interna da matriz com -2 e -3
+                if((linha + coluna) % 2 == 0)
+                {
+                    Matriz_auxiliar[linha][coluna] = -2;
+                }
+                else
+                {
+                    Matriz_auxiliar[linha][coluna] = -3;
                 }
             }
         }
@@ -231,10 +247,17 @@ void pintar_matriz(void)
 //  Funcao auxiliar para pintar o campo minado na tela
 void pintar_imagens(int matriz, int x, int y, int comp, int alt)
 {
-    //  Parte de dentro invisivel
-    if(matriz == -2)
+    //  Parte de dentro invisivel 1
+    if(matriz == -3)
     {
         SDL_SetRenderDrawColor(tela, 223, 223, 223, 255);
+        SDL_Rect quadrado = {x, y, comp, alt};
+        SDL_RenderFillRect(tela, &quadrado);
+    }
+    //  Parte de dentro invisivel 2
+    if(matriz == -2)
+    {
+        SDL_SetRenderDrawColor(tela, 200, 200, 200, 255);
         SDL_Rect quadrado = {x, y, comp, alt};
         SDL_RenderFillRect(tela, &quadrado);
     }
