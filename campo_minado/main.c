@@ -17,6 +17,7 @@ int coluna_mouse;
 
 //  Matriz do campo minado
 int Matriz[10][10];
+int Matriz_auxiliar[10][10];
 
 //  Funcoes
 void carregar_imagem(void);
@@ -26,6 +27,7 @@ int preencher_matriz(void);
 void pintar_matriz(void);
 void pintar_imagens(int matriz, int x, int y, int comp, int alt);
 void verificador_de_bombas(void);
+void abrir_posicao(int x, int y);
 
 //  Variaveis SDl
 SDL_Window *janela = NULL;
@@ -82,7 +84,6 @@ int main()
             {
                 coluna_mouse = evento.motion.x / (comprimento / 10);
                 linha_mouse = evento.motion.y / (altura / 10);
-                printf("X: %d, Y: %d \n", coluna_mouse, linha_mouse);
             }
         }
 
@@ -162,7 +163,8 @@ void carregar_imagem(void)
 //  Funcao responsavel pela logica do programa
 void logica(void)
 {
-    //  Code
+    //  Funcao que abre as posicoes do campo minado
+    abrir_posicao(coluna_mouse, linha_mouse);
 }
 
 //  Funcao responsavel pelos graficos do programa
@@ -187,6 +189,7 @@ int preencher_matriz(void)
     {
         for(coluna = 0; coluna < 10; coluna++)
         {
+            Matriz_auxiliar[linha][coluna] = -1;
             if((linha == 0 || linha == 9) || (coluna == 0 || coluna == 9))
             {
                 Matriz[linha][coluna] = -1;
@@ -219,7 +222,7 @@ void pintar_matriz(void)
         {
             quadrado_x = coluna * quadrado_comp;
             quadrado_y = linha * quadrado_alt;
-            pintar_imagens(Matriz[linha][coluna], quadrado_x, quadrado_y, quadrado_comp, quadrado_alt);
+            pintar_imagens(Matriz_auxiliar[linha][coluna], quadrado_x, quadrado_y, quadrado_comp, quadrado_alt);
         }
     }
 }
@@ -230,7 +233,9 @@ void pintar_imagens(int matriz, int x, int y, int comp, int alt)
     //  Borda
     if(matriz == -1)
     {
-        //  Code
+        SDL_SetRenderDrawColor(tela, 112, 135, 179, 255);
+        SDL_Rect quadrado = {x, y, comp, alt};
+        SDL_RenderFillRect(tela, &quadrado);
     }
     //  Bombas
     if(matriz == 9)
@@ -344,5 +349,15 @@ void verificador_de_bombas(void)
                 Matriz[linha][coluna] = numero_de_bombas;
             }
         }
+    }
+}
+
+//  Funcao que mostra o que ha dentro da posicao clicada
+void abrir_posicao(int x, int y)
+{
+    Matriz_auxiliar[x][y] = Matriz[x][y];
+    if(Matriz[x][y] == 9)
+    {
+        printf("Voce clicou em uma bomba! \n");
     }
 }
