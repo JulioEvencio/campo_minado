@@ -229,4 +229,52 @@ void pintar_imagens(int matriz, int x, int y, int comp, int alt)
         SDL_Rect zero_img = {x, y, comp, alt};
         SDL_RenderCopy(tela, zero, NULL, &zero_img);
     }
+    //  Numero 1
+    if(matriz == 1)
+    {
+        SDL_Rect um_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, um, NULL, &um_img);
+    }
+    //  Numero dois
+    if(matriz == 2)
+    {
+        SDL_Rect dois_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, dois, NULL, &dois_img);
+    }
+    //  Numero tres
+    if(matriz == 3)
+    {
+        SDL_Rect tres_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, tres, NULL, &tres_img);
+    }
+    //  Numero quatro
+    if(matriz == 4)
+    {
+        SDL_Rect quatro_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, quatro, NULL, &quatro_img);
+    }
+    //  Numero cinco
+    if(matriz == 5)
+    {
+        SDL_Rect cinco_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, cinco, NULL, &cinco_img);
+    }
+    //  Numero seis
+    if(matriz == 6)
+    {
+        SDL_Rect seis_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, seis, NULL, &seis_img);
+    }
+    //  Numero sete
+    if(matriz == 7)
+    {
+        SDL_Rect sete_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, sete, NULL, &sete_img);
+    }
+    //  Numero oito
+    if(matriz == 8)
+    {
+        SDL_Rect oito_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, oito, NULL, &oito_img);
+    }
 }

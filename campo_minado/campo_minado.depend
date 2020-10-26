@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1603669174 source:/home/evencio_20/julio/programacao/c/github/campo_minado/campo_minado/main.c
+1603671746 source:/home/evencio_20/julio/programacao/c/github/campo_minado/campo_minado/main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
