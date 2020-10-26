@@ -164,7 +164,7 @@ void carregar_imagem(void)
 void logica(void)
 {
     //  Funcao que abre as posicoes do campo minado
-    abrir_posicao(coluna_mouse, linha_mouse);
+    abrir_posicao(linha_mouse, coluna_mouse);
 }
 
 //  Funcao responsavel pelos graficos do programa
@@ -358,6 +358,6 @@ void abrir_posicao(int x, int y)
     Matriz_auxiliar[x][y] = Matriz[x][y];
     if(Matriz[x][y] == 9)
     {
-        printf("Voce clicou em uma bomba! \n");
+        //  printf("Voce clicou em uma bomba! \n");
     }
 }
