@@ -204,7 +204,7 @@ int preencher_matriz(void)
             }
             else
             {
-                if((rand() % 10) % 2 == 0)
+                if((rand() % 10) < 3)
                 {
                     Matriz[linha][coluna] = 9;
                     bombas++;
