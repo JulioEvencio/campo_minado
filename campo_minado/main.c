@@ -23,6 +23,7 @@ void graficos(void);
 int preencher_matriz(void);
 void pintar_matriz(void);
 void pintar_imagens(int matriz, int x, int y, int comp, int alt);
+void verificador_de_bombas(void);
 
 //  Variaveis SDl
 SDL_Window *janela = NULL;
@@ -48,6 +49,8 @@ int main()
     srand(time(NULL));
     //  preenchendo a matriz do campo minado
     preencher_matriz();
+    //  Funcao que vai marcar quantas bombas adjacentes ha em locais vazios
+    verificador_de_bombas();
 
     //  Iniciando SDL e SDL IMAGE
     SDL_Init(SDL_INIT_VIDEO);
@@ -154,7 +157,7 @@ void logica(void)
 void graficos(void)
 {
     //  Definindo plano de fundo da janela
-    SDL_SetRenderDrawColor(tela, 0, 0, 0, 0);
+    SDL_SetRenderDrawColor(tela, 0, 0, 0, 255);
     SDL_RenderClear(tela);
 
     //  Pintando matriz na tela
@@ -276,5 +279,58 @@ void pintar_imagens(int matriz, int x, int y, int comp, int alt)
     {
         SDL_Rect oito_img = {x, y, comp, alt};
         SDL_RenderCopy(tela, oito, NULL, &oito_img);
+    }
+}
+
+//  Funcao que verifica quantas bombas ha nos lugares adjacentes aos locais vazios
+void verificador_de_bombas(void)
+{
+    int linha, coluna, numero_de_bombas;
+    for(linha = 0; linha < 10; linha++)
+    {
+        for(coluna = 0; coluna < 10; coluna++)
+        {
+            numero_de_bombas = 0;
+            //  Divisao 1
+            if(Matriz[linha][coluna-1] == 9)
+            {
+                numero_de_bombas++;
+            }
+            if(Matriz[linha][coluna+1] == 9)
+            {
+                numero_de_bombas++;
+            }
+            //  Divisao 2
+            if(Matriz[linha-1][coluna-1] == 9)
+            {
+                numero_de_bombas++;
+            }
+            if(Matriz[linha-1][coluna] == 9)
+            {
+                numero_de_bombas++;
+            }
+            if(Matriz[linha-1][coluna+1] == 9)
+            {
+                numero_de_bombas++;
+            }
+            //  Divisao 3
+            if(Matriz[linha+1][coluna-1] == 9)
+            {
+                numero_de_bombas++;
+            }
+            if(Matriz[linha+1][coluna] == 9)
+            {
+                numero_de_bombas++;
+            }
+            if(Matriz[linha+1][coluna+1] == 9)
+            {
+                numero_de_bombas++;
+            }
+            //  Adicionando numeros de bombas na posicao vazia
+            if(Matriz[linha][coluna] == 0)
+            {
+                Matriz[linha][coluna] = numero_de_bombas;
+            }
+        }
     }
 }
