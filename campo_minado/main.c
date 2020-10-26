@@ -12,6 +12,8 @@
 const int comprimento = 640;
 const int altura = 640;
 bool loop = true;
+int linha_mouse;
+int coluna_mouse;
 
 //  Matriz do campo minado
 int Matriz[10][10];
@@ -75,6 +77,13 @@ int main()
             {
                 loop = false;
             }
+            //  Verificando se o usuario clicou
+            if(evento.type == SDL_MOUSEBUTTONDOWN)
+            {
+                coluna_mouse = evento.motion.x / (comprimento / 10);
+                linha_mouse = evento.motion.y / (altura / 10);
+                printf("X: %d, Y: %d \n", coluna_mouse, linha_mouse);
+            }
         }
 
         //  Logica
@@ -82,6 +91,9 @@ int main()
 
         //  Graficos
         graficos();
+
+        //  Delay
+        SDL_Delay(60/1000);
     }
 
     //  Finalizando SDL e SDL IMAGE
