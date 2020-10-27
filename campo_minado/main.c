@@ -86,6 +86,16 @@ int main()
             {
                 loop = false;
             }
+            //  Verificando se  o usuario apertou uma tecla
+            if(evento.type == SDL_KEYDOWN)
+            {
+                //  Tecla Esc
+                if(evento.key.keysym.sym == SDLK_ESCAPE)
+                {
+                    preencher_matriz();
+                    verificador_de_bombas();
+                }
+            }
             //  Verificando se o usuario clicou
             if(evento.type == SDL_MOUSEBUTTONDOWN)
             {
