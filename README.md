@@ -7,17 +7,18 @@
  
  **Algumas imagens do programa**
 
-Imagem 1:
+Imagem 1
 
-![Captura de tela de 2020-10-26 00-13-43](https://user-images.githubusercontent.com/65574850/97130803-30803400-1721-11eb-973d-541942ae6d00.png)
+![Captura de tela de 2020-10-27 01-39-56](https://user-images.githubusercontent.com/65574850/97260142-1f0b5a80-17fb-11eb-971c-7bc2f337c564.png)
 
-Imagem 2:
+Imagem 2
 
-![Captura de tela de 2020-10-26 00-14-36](https://user-images.githubusercontent.com/65574850/97130817-38d86f00-1721-11eb-8734-74e79fc62383.png)
+![Captura de tela de 2020-10-27 02-16-55](https://user-images.githubusercontent.com/65574850/97260184-31859400-17fb-11eb-9207-c961717231c5.png)
 
-Imagem 3:
+Imagem 3
 
-![Captura de tela de 2020-10-26 00-15-12](https://user-images.githubusercontent.com/65574850/97130830-4130aa00-1721-11eb-85c6-8f626c86d69b.png)
+![Captura de tela de 2020-10-27 01-38-02](https://user-images.githubusercontent.com/65574850/97260205-3a766580-17fb-11eb-8acd-2d32b36c60f6.png)
+
 
 
 **Em desenvolvimeto**
