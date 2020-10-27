@@ -388,10 +388,15 @@ void verificador_de_bombas(void)
 //  Funcao que mostra o que ha dentro da posicao clicada
 void abrir_posicao(int x, int y)
 {
-    Matriz_auxiliar[x][y] = Matriz[x][y];
-    if(Matriz[x][y] == 9)
+    //  Verificando se o local esta marcado com bandeira
+    if(Matriz_auxiliar[x][y] != -3)
     {
-        //  printf("Voce clicou em uma bomba! \n");
+        Matriz_auxiliar[x][y] = Matriz[x][y];
+        //  Verificando se o usuario perdeu
+        if(Matriz[x][y] == 9)
+        {
+            printf("Voce clicou em uma bomba! \n");
+        }
     }
 }
 
