@@ -30,6 +30,7 @@ void verificador_de_bombas(void);
 void abrir_posicao(int x, int y);
 void colocar_bandeira(int x, int y);
 void clicar_mouse(void);
+void perder_jogo(void);
 
 //  Variaveis SDl
 SDL_Window *janela = NULL;
@@ -395,7 +396,7 @@ void abrir_posicao(int x, int y)
         //  Verificando se o usuario perdeu
         if(Matriz[x][y] == 9)
         {
-            printf("Voce clicou em uma bomba! \n");
+            perder_jogo();
         }
     }
 }
@@ -430,5 +431,18 @@ void clicar_mouse(void)
     if(evento.button.button == SDL_BUTTON_RIGHT)
     {
         colocar_bandeira(linha_mouse, coluna_mouse);
+    }
+}
+
+void perder_jogo(void)
+{
+    int linha, coluna;
+    //  Deixando as matrizes iguais para exibir o gabarito do jogo
+    for(linha = 0; linha < 10; linha++)
+    {
+        for(coluna = 0; coluna < 10; coluna++)
+        {
+            Matriz_auxiliar[linha][coluna] = Matriz[linha][coluna];
+        }
     }
 }
