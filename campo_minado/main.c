@@ -398,14 +398,18 @@ void abrir_posicao(int x, int y)
 //  Funcao que coloca ou retira a bandeira
 void colocar_bandeira(int x, int y)
 {
-    //  Verificando se ha bandeira ou nao no local
+    //  Verificando se o local e valido
     if(Matriz_auxiliar[x][y] == -2)
     {
         Matriz_auxiliar[x][y] = -3;
     }
     else
     {
-        Matriz_auxiliar[x][y] = -2;
+        //  Removendo bandeira
+        if(Matriz_auxiliar[x][y] == -3)
+        {
+            Matriz_auxiliar[x][y] = -2;
+        }
     }
 }
 
