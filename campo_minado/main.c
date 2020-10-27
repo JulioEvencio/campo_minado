@@ -47,6 +47,7 @@ SDL_Texture *seis = NULL;
 SDL_Texture *sete = NULL;
 SDL_Texture *oito = NULL;
 SDL_Texture *bomba = NULL;
+SDL_Texture *bomba_explodida = NULL;
 SDL_Texture *bandeira = NULL;
 SDL_Texture *bloco = NULL;
 SDL_Texture *borda = NULL;
@@ -167,6 +168,11 @@ void carregar_imagem(void)
     bomba = SDL_CreateTextureFromSurface(tela, imagem);
     SDL_FreeSurface(imagem);
 
+    //  Bomba Explodida
+    imagem = IMG_Load("imagem/mina_vermelha.png");
+    bomba_explodida = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
+
     //  Bandeira
     imagem = IMG_Load("imagem/bandeira.png");
     bandeira = SDL_CreateTextureFromSurface(tela, imagem);
@@ -270,6 +276,12 @@ void pintar_imagens(int matriz, int x, int y, int comp, int alt)
     {
         SDL_Rect borda_img = {x, y, comp, alt};
         SDL_RenderCopy(tela, borda, NULL, &borda_img);
+    }
+    //  Bomba Explodida
+    if(matriz == -4)
+    {
+        SDL_Rect bomba_explodida_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, bomba_explodida, NULL, &bomba_explodida_img);
     }
     //  Bombas
     if(matriz == 9)
@@ -442,6 +454,7 @@ void perder_jogo(void)
     {
         for(coluna = 0; coluna < 10; coluna++)
         {
+            Matriz[linha_mouse][coluna_mouse] = -4;
             Matriz_auxiliar[linha][coluna] = Matriz[linha][coluna];
         }
     }
