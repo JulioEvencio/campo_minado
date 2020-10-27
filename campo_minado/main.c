@@ -14,8 +14,6 @@ const int altura = 640;
 bool loop = true;
 int linha_mouse;
 int coluna_mouse;
-int linha_mov;
-int coluna_mov;
 
 //  Matriz do campo minado
 int Matriz[10][10];
@@ -30,6 +28,8 @@ void pintar_matriz(void);
 void pintar_imagens(int matriz, int x, int y, int comp, int alt);
 void verificador_de_bombas(void);
 void abrir_posicao(int x, int y);
+void colocar_bandeira(int x, int y);
+void clicar_mouse(void);
 
 //  Variaveis SDl
 SDL_Window *janela = NULL;
@@ -46,6 +46,9 @@ SDL_Texture *seis = NULL;
 SDL_Texture *sete = NULL;
 SDL_Texture *oito = NULL;
 SDL_Texture *bomba = NULL;
+SDL_Texture *bandeira = NULL;
+SDL_Texture *bloco = NULL;
+SDL_Texture *borda = NULL;
 
 SDL_Event evento;
 
@@ -81,17 +84,13 @@ int main()
             {
                 loop = false;
             }
-            //  Verificando se o mouse foi movido
-            if(evento.type == SDL_MOUSEMOTION)
-            {
-                coluna_mov = evento.motion.x / (comprimento / 10);
-                linha_mov = evento.motion.y / (altura / 10);
-            }
             //  Verificando se o usuario clicou
             if(evento.type == SDL_MOUSEBUTTONDOWN)
             {
+                //  Pegando a posicao do mouse
                 coluna_mouse = evento.motion.x / (comprimento / 10);
                 linha_mouse = evento.motion.y / (altura / 10);
+                clicar_mouse();
             }
         }
 
@@ -166,13 +165,27 @@ void carregar_imagem(void)
     imagem = IMG_Load("imagem/mina.png");
     bomba = SDL_CreateTextureFromSurface(tela, imagem);
     SDL_FreeSurface(imagem);
+
+    //  Bandeira
+    imagem = IMG_Load("imagem/bandeira.png");
+    bandeira = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
+
+    //  Bloco
+    imagem = IMG_Load("imagem/bloco.png");
+    bloco = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
+
+    //  Borda
+    imagem = IMG_Load("imagem/borda.png");
+    borda = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
 }
 
 //  Funcao responsavel pela logica do programa
 void logica(void)
 {
-    //  Funcao que abre as posicoes do campo minado
-    abrir_posicao(linha_mouse, coluna_mouse);
+    //  Code
 }
 
 //  Funcao responsavel pelos graficos do programa
@@ -204,6 +217,7 @@ int preencher_matriz(void)
             }
             else
             {
+                Matriz_auxiliar[linha][coluna] = -2;
                 if((rand() % 10) < 3)
                 {
                     Matriz[linha][coluna] = 9;
@@ -212,15 +226,6 @@ int preencher_matriz(void)
                 else
                 {
                     Matriz[linha][coluna] = 0;
-                }
-                //  Quatriculando parte interna da matriz com -2 e -3
-                if((linha + coluna) % 2 == 0)
-                {
-                    Matriz_auxiliar[linha][coluna] = -2;
-                }
-                else
-                {
-                    Matriz_auxiliar[linha][coluna] = -3;
                 }
             }
         }
@@ -247,26 +252,23 @@ void pintar_matriz(void)
 //  Funcao auxiliar para pintar o campo minado na tela
 void pintar_imagens(int matriz, int x, int y, int comp, int alt)
 {
-    //  Parte de dentro invisivel 1
+    //  Bandeira
     if(matriz == -3)
     {
-        SDL_SetRenderDrawColor(tela, 223, 223, 223, 255);
-        SDL_Rect quadrado = {x, y, comp, alt};
-        SDL_RenderFillRect(tela, &quadrado);
+        SDL_Rect bandeira_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, bandeira, NULL, &bandeira_img);
     }
-    //  Parte de dentro invisivel 2
+    //  Parte de dentro invisivel
     if(matriz == -2)
     {
-        SDL_SetRenderDrawColor(tela, 200, 200, 200, 255);
-        SDL_Rect quadrado = {x, y, comp, alt};
-        SDL_RenderFillRect(tela, &quadrado);
+        SDL_Rect bloco_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, bloco, NULL, &bloco_img);
     }
     //  Borda
     if(matriz == -1)
     {
-        SDL_SetRenderDrawColor(tela, 112, 135, 179, 255);
-        SDL_Rect quadrado = {x, y, comp, alt};
-        SDL_RenderFillRect(tela, &quadrado);
+        SDL_Rect borda_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, borda, NULL, &borda_img);
     }
     //  Bombas
     if(matriz == 9)
@@ -390,5 +392,34 @@ void abrir_posicao(int x, int y)
     if(Matriz[x][y] == 9)
     {
         //  printf("Voce clicou em uma bomba! \n");
+    }
+}
+
+//  Funcao que coloca ou retira a bandeira
+void colocar_bandeira(int x, int y)
+{
+    //  Verificando se ha bandeira ou nao no local
+    if(Matriz_auxiliar[x][y] == -2)
+    {
+        Matriz_auxiliar[x][y] = -3;
+    }
+    else
+    {
+        Matriz_auxiliar[x][y] = -2;
+    }
+}
+
+//  Funcao que ativa quando alguem clicar com o mouse
+void clicar_mouse(void)
+{
+    //  Verificando se o botao esquerdo do mouse foi pressionado
+    if(evento.button.button == SDL_BUTTON_LEFT)
+    {
+        abrir_posicao(linha_mouse, coluna_mouse);
+    }
+    //  Verificando se o botao direito do mouse foi pressionado
+    if(evento.button.button == SDL_BUTTON_RIGHT)
+    {
+        colocar_bandeira(linha_mouse, coluna_mouse);
     }
 }
