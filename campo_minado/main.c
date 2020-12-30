@@ -8,8 +8,6 @@
 #include "funcoes.c"
 
 //  Variaveis
-const int comprimento = 640;
-const int altura = 640;
 bool loop = true;
 int linha_mouse;
 int coluna_mouse;
@@ -66,7 +64,7 @@ int main()
     sdl2_iniciar_SDL2();
 
     //  Criando janela
-    if((janela = sdl2_criar_janela("Campo Minado", comprimento, altura)) == NULL)
+    if((janela = sdl2_criar_janela(JANELA_NOME, JANELA_COMPRIMENTO, JANELA_ALTURA)) == NULL)
     {
         printf("Erro ao criar janela! \n");
         exit(1);
