@@ -106,8 +106,8 @@ int main()
             if(evento.type == SDL_MOUSEBUTTONDOWN)
             {
                 //  Pegando a posicao do mouse
-                coluna_mouse = evento.motion.x / (comprimento / 10);
-                linha_mouse = evento.motion.y / (altura / 10);
+                coluna_mouse = evento.motion.x / (JANELA_COMPRIMENTO / 10);
+                linha_mouse = evento.motion.y / (JANELA_ALTURA / 10);
                 clicar_mouse();
             }
         }
@@ -230,7 +230,7 @@ int preencher_matriz(void)
 void pintar_matriz(void)
 {
     int linha, coluna, quadrado_x, quadrado_y;
-    int quadrado_comp = (comprimento / 10), quadrado_alt = (altura / 10);
+    int quadrado_comp = (JANELA_COMPRIMENTO / 10), quadrado_alt = (JANELA_ALTURA / 10);
     for(linha = 0; linha < 10; linha++)
     {
         for(coluna = 0; coluna < 10; coluna++)
