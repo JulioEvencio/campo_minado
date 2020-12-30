@@ -20,28 +20,6 @@ void colocar_bandeira(int x, int y);
 void clicar_mouse(void);
 void perder_jogo(void);
 
-//  Variaveis SDl
-SDL_Window *janela = NULL;
-SDL_Renderer *tela = NULL;
-SDL_Surface *imagem = NULL;
-//  Variaveis das imagens
-SDL_Texture *zero = NULL;
-SDL_Texture *um = NULL;
-SDL_Texture *dois = NULL;
-SDL_Texture *tres = NULL;
-SDL_Texture *quatro = NULL;
-SDL_Texture *cinco = NULL;
-SDL_Texture *seis = NULL;
-SDL_Texture *sete = NULL;
-SDL_Texture *oito = NULL;
-SDL_Texture *bomba = NULL;
-SDL_Texture *bomba_explodida = NULL;
-SDL_Texture *bandeira = NULL;
-SDL_Texture *bloco = NULL;
-SDL_Texture *borda = NULL;
-
-SDL_Event evento;
-
 int main()
 {
     //  Definindo semente para a funcao rand
@@ -110,7 +88,7 @@ int main()
         graficos();
 
         //  Delay
-        SDL_Delay(60/1000);
+        SDL_Delay(DELAY);
     }
 
     //  Finalizando SDL e SDL IMAGE
