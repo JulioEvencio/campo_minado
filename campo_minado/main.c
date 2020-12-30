@@ -63,12 +63,21 @@ int main()
     verificador_de_bombas();
 
     //  Iniciando SDL e SDL IMAGE
-    SDL_Init(SDL_INIT_VIDEO);
-    IMG_Init(IMG_INIT_PNG);
+    sdl2_iniciar_SDL2();
 
-    //  Criando janela e tela
-    janela = SDL_CreateWindow("Campo Minado", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, comprimento, altura, 0);
-    tela = SDL_CreateRenderer(janela, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    //  Criando janela
+    if((janela = sdl2_criar_janela("Campo Minado", comprimento, altura)) == NULL)
+    {
+        printf("Erro ao criar janela! \n");
+        exit(1);
+    }
+
+    //  Criando tela
+    if((tela = sdl2_criar_tela(janela)) == NULL)
+    {
+        printf("Erro ao criar tela \n");
+        exit(1);
+    }
 
     //  Carregar imagens em suas variaveis
     carregar_imagem();
@@ -116,10 +125,9 @@ int main()
     }
 
     //  Finalizando SDL e SDL IMAGE
-    SDL_DestroyRenderer(tela);
-    SDL_DestroyWindow(janela);
-    IMG_Quit();
-    SDL_Quit();
+    sdl2_fechar_tela(tela);
+    sdl2_fechar_janela(janela);
+    sdl2_finalizar_SDL2();
 
     return 0;
 }
@@ -128,74 +136,46 @@ int main()
 void carregar_imagem(void)
 {
     //  Numero zero
-    imagem = IMG_Load("imagem/zero.png");
-    zero = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    zero = sdl2_carregar_textura(tela, "imagem/zero.png");
 
     //  Numero um
-    imagem = IMG_Load("imagem/um.png");
-    um = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    um = sdl2_carregar_textura(tela, "imagem/um.png");
 
     //  Numero dois
-    imagem = IMG_Load("imagem/dois.png");
-    dois = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    dois = sdl2_carregar_textura(tela, "imagem/dois.png");
 
     //  Numero tres
-    imagem = IMG_Load("imagem/tres.png");
-    tres = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    tres = sdl2_carregar_textura(tela, "imagem/tres.png");
 
     //  Numero quatro
-    imagem = IMG_Load("imagem/quatro.png");
-    quatro = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    quatro = sdl2_carregar_textura(tela, "imagem/quatro.png");
 
     //  Numero cinco
-    imagem = IMG_Load("imagem/cinco.png");
-    cinco = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    cinco = sdl2_carregar_textura(tela, "imagem/cinco.png");
 
     //  Numero seis
-    imagem = IMG_Load("imagem/seis.png");
-    seis = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    seis = sdl2_carregar_textura(tela, "imagem/seis.png");
 
     //  Numero sete
-    imagem = IMG_Load("imagem/sete.png");
-    sete = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    sete = sdl2_carregar_textura(tela, "imagem/sete.png");
 
     //  Numero oito
-    imagem = IMG_Load("imagem/oito.png");
-    oito = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    oito = sdl2_carregar_textura(tela, "imagem/oito.png");
 
     //  Bomba
-    imagem = IMG_Load("imagem/mina.png");
-    bomba = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    bomba = sdl2_carregar_textura(tela, "imagem/mina.png");
 
     //  Bomba Explodida
-    imagem = IMG_Load("imagem/mina_vermelha.png");
-    bomba_explodida = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    bomba_explodida = sdl2_carregar_textura(tela, "imagem/mina_vermelha.png");
 
     //  Bandeira
-    imagem = IMG_Load("imagem/bandeira.png");
-    bandeira = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    bandeira = sdl2_carregar_textura(tela, "imagem/bandeira.png");
 
     //  Bloco
-    imagem = IMG_Load("imagem/bloco.png");
-    bloco = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    bloco = sdl2_carregar_textura(tela, "imagem/bloco.png");
 
     //  Borda
-    imagem = IMG_Load("imagem/borda.png");
-    borda = SDL_CreateTextureFromSurface(tela, imagem);
-    SDL_FreeSurface(imagem);
+    borda = sdl2_carregar_textura(tela, "imagem/borda.png");
 }
 
 //  Funcao responsavel pela logica do programa
@@ -208,14 +188,13 @@ void logica(void)
 void graficos(void)
 {
     //  Definindo plano de fundo da janela
-    SDL_SetRenderDrawColor(tela, 0, 0, 0, 255);
-    SDL_RenderClear(tela);
+    sdl2_limpar_tela(tela, SDL2_BRANCO);
 
     //  Pintando matriz na tela
     pintar_matriz();
 
     //  Atualizando tela
-    SDL_RenderPresent(tela);
+    sdl2_atualizar_tela(tela);
 }
 
 //  Funcao que preenche a matriz do campo minado para que ela possa ser jogavel
@@ -271,86 +250,72 @@ void pintar_imagens(int matriz, int x, int y, int comp, int alt)
     //  Bandeira
     if(matriz == -3)
     {
-        SDL_Rect bandeira_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, bandeira, NULL, &bandeira_img);
+        sdl2_desenhar_textura(tela, bandeira, x, y, comp, alt);
     }
     //  Parte de dentro invisivel
     if(matriz == -2)
     {
-        SDL_Rect bloco_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, bloco, NULL, &bloco_img);
+        sdl2_desenhar_textura(tela, bloco, x, y, comp, alt);
     }
     //  Borda
     if(matriz == -1)
     {
-        SDL_Rect borda_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, borda, NULL, &borda_img);
+        sdl2_desenhar_textura(tela, borda, x, y, comp, alt);
     }
     //  Bomba Explodida
     if(matriz == -4)
     {
-        SDL_Rect bomba_explodida_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, bomba_explodida, NULL, &bomba_explodida_img);
+        sdl2_desenhar_textura(tela, bomba_explodida, x, y, comp, alt);
     }
     //  Bombas
     if(matriz == 9)
     {
-        SDL_Rect bomba_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, bomba, NULL, &bomba_img);
+        sdl2_desenhar_textura(tela, bomba, x, y, comp, alt);
     }
     //  Numero 0
     if(matriz == 0)
     {
-        SDL_Rect zero_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, zero, NULL, &zero_img);
+        sdl2_desenhar_textura(tela, zero, x, y, comp, alt);
     }
     //  Numero 1
     if(matriz == 1)
     {
-        SDL_Rect um_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, um, NULL, &um_img);
+        sdl2_desenhar_textura(tela, um, x, y, comp, alt);
     }
     //  Numero dois
     if(matriz == 2)
     {
-        SDL_Rect dois_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, dois, NULL, &dois_img);
+        sdl2_desenhar_textura(tela, dois, x, y, comp, alt);
     }
     //  Numero tres
     if(matriz == 3)
     {
-        SDL_Rect tres_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, tres, NULL, &tres_img);
+        sdl2_desenhar_textura(tela, tres, x, y, comp, alt);
     }
     //  Numero quatro
     if(matriz == 4)
     {
-        SDL_Rect quatro_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, quatro, NULL, &quatro_img);
+        sdl2_desenhar_textura(tela, quatro, x, y, comp, alt);
     }
     //  Numero cinco
     if(matriz == 5)
     {
-        SDL_Rect cinco_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, cinco, NULL, &cinco_img);
+        sdl2_desenhar_textura(tela, cinco, x, y, comp, alt);
     }
     //  Numero seis
     if(matriz == 6)
     {
-        SDL_Rect seis_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, seis, NULL, &seis_img);
+        sdl2_desenhar_textura(tela, seis, x, y, comp, alt);
     }
     //  Numero sete
     if(matriz == 7)
     {
-        SDL_Rect sete_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, sete, NULL, &sete_img);
+        sdl2_desenhar_textura(tela, sete, x, y, comp, alt);
     }
     //  Numero oito
     if(matriz == 8)
     {
-        SDL_Rect oito_img = {x, y, comp, alt};
-        SDL_RenderCopy(tela, oito, NULL, &oito_img);
+        sdl2_desenhar_textura(tela, oito, x, y, comp, alt);
     }
 }
 
