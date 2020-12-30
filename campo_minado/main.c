@@ -1,12 +1,11 @@
 /*
     Campo minado
 */
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <stdbool.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+
+//  Bibliotecas
+#include "cabecalho.h"
+#include "sdl2/sdl2.c"
+#include "funcoes.c"
 
 //  Variaveis
 const int comprimento = 640;
