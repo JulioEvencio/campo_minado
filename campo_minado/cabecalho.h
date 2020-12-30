@@ -13,8 +13,18 @@
 #define JANELA_NOME "Campo Minado"
 #define JANELA_COMPRIMENTO 640
 #define JANELA_ALTURA 640
+//  Matriz
+#define MATRIZ_TAMANHO 10
 
 /*  Variaveis */
+//  Jogo
+bool loop = true;
+//  Mouse
+int linha_mouse;
+int coluna_mouse;
+//  Matriz do campo minado
+int Matriz[MATRIZ_TAMANHO][MATRIZ_TAMANHO];
+int Matriz_auxiliar[MATRIZ_TAMANHO][MATRIZ_TAMANHO];
 
 /*  Estruturas */
 

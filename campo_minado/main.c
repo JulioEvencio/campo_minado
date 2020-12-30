@@ -7,15 +7,6 @@
 #include "sdl2/sdl2.c"
 #include "funcoes.c"
 
-//  Variaveis
-bool loop = true;
-int linha_mouse;
-int coluna_mouse;
-
-//  Matriz do campo minado
-int Matriz[10][10];
-int Matriz_auxiliar[10][10];
-
 //  Funcoes
 void carregar_imagem(void);
 void logica(void);
@@ -106,8 +97,8 @@ int main()
             if(evento.type == SDL_MOUSEBUTTONDOWN)
             {
                 //  Pegando a posicao do mouse
-                coluna_mouse = evento.motion.x / (JANELA_COMPRIMENTO / 10);
-                linha_mouse = evento.motion.y / (JANELA_ALTURA / 10);
+                coluna_mouse = evento.motion.x / (JANELA_COMPRIMENTO / MATRIZ_TAMANHO);
+                linha_mouse = evento.motion.y / (JANELA_ALTURA / MATRIZ_TAMANHO);
                 clicar_mouse();
             }
         }
@@ -199,9 +190,9 @@ void graficos(void)
 int preencher_matriz(void)
 {
     int linha, coluna, bombas = 0;
-    for(linha = 0; linha < 10; linha++)
+    for(linha = 0; linha < MATRIZ_TAMANHO; linha++)
     {
-        for(coluna = 0; coluna < 10; coluna++)
+        for(coluna = 0; coluna < MATRIZ_TAMANHO; coluna++)
         {
             if((linha == 0 || linha == 9) || (coluna == 0 || coluna == 9))
             {
@@ -230,10 +221,10 @@ int preencher_matriz(void)
 void pintar_matriz(void)
 {
     int linha, coluna, quadrado_x, quadrado_y;
-    int quadrado_comp = (JANELA_COMPRIMENTO / 10), quadrado_alt = (JANELA_ALTURA / 10);
-    for(linha = 0; linha < 10; linha++)
+    int quadrado_comp = (JANELA_COMPRIMENTO / MATRIZ_TAMANHO), quadrado_alt = (JANELA_ALTURA / MATRIZ_TAMANHO);
+    for(linha = 0; linha < MATRIZ_TAMANHO; linha++)
     {
-        for(coluna = 0; coluna < 10; coluna++)
+        for(coluna = 0; coluna < MATRIZ_TAMANHO; coluna++)
         {
             quadrado_x = coluna * quadrado_comp;
             quadrado_y = linha * quadrado_alt;
@@ -321,9 +312,9 @@ void pintar_imagens(int matriz, int x, int y, int comp, int alt)
 void verificador_de_bombas(void)
 {
     int linha, coluna, numero_de_bombas;
-    for(linha = 0; linha < 10; linha++)
+    for(linha = 0; linha < MATRIZ_TAMANHO; linha++)
     {
-        for(coluna = 0; coluna < 10; coluna++)
+        for(coluna = 0; coluna < MATRIZ_TAMANHO; coluna++)
         {
             numero_de_bombas = 0;
             //  Divisao 1
@@ -422,9 +413,9 @@ void perder_jogo(void)
 {
     int linha, coluna;
     //  Deixando as matrizes iguais para exibir o gabarito do jogo
-    for(linha = 0; linha < 10; linha++)
+    for(linha = 0; linha < MATRIZ_TAMANHO; linha++)
     {
-        for(coluna = 0; coluna < 10; coluna++)
+        for(coluna = 0; coluna < MATRIZ_TAMANHO; coluna++)
         {
             Matriz[linha_mouse][coluna_mouse] = -4;
             Matriz_auxiliar[linha][coluna] = Matriz[linha][coluna];
