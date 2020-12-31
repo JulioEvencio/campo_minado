@@ -58,6 +58,23 @@ SDL_Texture *imagens[IMAGENS_NUMERO];
 SDL_Event evento;
 
 /*  Estruturas */
+enum enum_imagens
+{
+    imagems_zero,
+    imagems_um,
+    imagems_dois,
+    imagems_tres,
+    imagems_quatro,
+    imagems_cinco,
+    imagems_seis,
+    imagems_sete,
+    imagems_oito,
+    imagems_mina,
+    imagems_mina_explodida,
+    imagems_bandeira,
+    imagems_bloco,
+    imagems_borda
+};
 
 /*  Funcoes */
 void carregar_imagem(void);
