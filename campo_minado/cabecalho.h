@@ -16,7 +16,7 @@
 //  Matriz
 #define MATRIZ_TAMANHO 10
 //  Textura
-#define IMAGENS_NUMERO 10
+#define IMAGENS_NUMERO 14
 //  Geral
 #define DELAY 10
 
@@ -36,8 +36,8 @@ static char *imagens_arquivos[IMAGENS_NUMERO] =
     "imagem/um.png",
     "imagem/dois.png",
     "imagem/tres.png",
-    "imagem/quatros.png",
-    "imagem/cincos.png",
+    "imagem/quatro.png",
+    "imagem/cinco.png",
     "imagem/seis.png",
     "imagem/sete.png",
     "imagem/oito.png",

@@ -170,72 +170,72 @@ void pintar_imagens(int matriz, int x, int y, int comp, int alt)
     //  Bandeira
     if(matriz == -3)
     {
-        sdl2_desenhar_textura(tela, bandeira, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_bandeira], x, y, comp, alt);
     }
     //  Parte de dentro invisivel
     if(matriz == -2)
     {
-        sdl2_desenhar_textura(tela, bloco, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_bloco], x, y, comp, alt);
     }
     //  Borda
     if(matriz == -1)
     {
-        sdl2_desenhar_textura(tela, borda, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_borda], x, y, comp, alt);
     }
     //  Bomba Explodida
     if(matriz == -4)
     {
-        sdl2_desenhar_textura(tela, bomba_explodida, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_mina_explodida], x, y, comp, alt);
     }
     //  Bombas
     if(matriz == 9)
     {
-        sdl2_desenhar_textura(tela, bomba, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_mina], x, y, comp, alt);
     }
     //  Numero 0
     if(matriz == 0)
     {
-        sdl2_desenhar_textura(tela, zero, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_zero], x, y, comp, alt);
     }
     //  Numero 1
     if(matriz == 1)
     {
-        sdl2_desenhar_textura(tela, um, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_um], x, y, comp, alt);
     }
     //  Numero dois
     if(matriz == 2)
     {
-        sdl2_desenhar_textura(tela, dois, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_dois], x, y, comp, alt);
     }
     //  Numero tres
     if(matriz == 3)
     {
-        sdl2_desenhar_textura(tela, tres, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_tres], x, y, comp, alt);
     }
     //  Numero quatro
     if(matriz == 4)
     {
-        sdl2_desenhar_textura(tela, quatro, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_quatro], x, y, comp, alt);
     }
     //  Numero cinco
     if(matriz == 5)
     {
-        sdl2_desenhar_textura(tela, cinco, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_cinco], x, y, comp, alt);
     }
     //  Numero seis
     if(matriz == 6)
     {
-        sdl2_desenhar_textura(tela, seis, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_seis], x, y, comp, alt);
     }
     //  Numero sete
     if(matriz == 7)
     {
-        sdl2_desenhar_textura(tela, sete, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_sete], x, y, comp, alt);
     }
     //  Numero oito
     if(matriz == 8)
     {
-        sdl2_desenhar_textura(tela, oito, x, y, comp, alt);
+        sdl2_desenhar_textura(tela, imagens[imagems_oito], x, y, comp, alt);
     }
 }
 
