@@ -83,7 +83,7 @@ int main()
     }
 
     //  Carregar imagens em suas variaveis
-    carregar_imagem(imagens, imagens_arquivos);
+    carregar_imagem(tela, imagens, imagens_arquivos);
 
     //  Loop do jogo
     while(loop)
