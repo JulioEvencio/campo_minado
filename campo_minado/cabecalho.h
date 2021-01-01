@@ -40,6 +40,6 @@ enum enum_imagens
 };
 
 /*  Funcoes */
-void carregar_imagem(void);
+void carregar_imagem(SDL_Texture *imagens[], char *arquivos[])
 
 #endif // CABECALHO_H_INCLUDED
