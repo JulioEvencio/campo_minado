@@ -20,43 +20,6 @@
 //  Geral
 #define DELAY 10
 
-/*  Variaveis */
-//  Jogo
-bool loop = true;
-//  Mouse
-int linha_mouse;
-int coluna_mouse;
-//  Matriz do campo minado
-int Matriz[MATRIZ_TAMANHO][MATRIZ_TAMANHO];
-int Matriz_auxiliar[MATRIZ_TAMANHO][MATRIZ_TAMANHO];
-//  Vetore de string com o nome dos arquivos das imagens
-static char *imagens_arquivos[IMAGENS_NUMERO] =
-{
-    "imagem/zero.png",
-    "imagem/um.png",
-    "imagem/dois.png",
-    "imagem/tres.png",
-    "imagem/quatro.png",
-    "imagem/cinco.png",
-    "imagem/seis.png",
-    "imagem/sete.png",
-    "imagem/oito.png",
-    "imagem/mina.png",
-    "imagem/mina_vermelha.png",
-    "imagem/bandeira.png",
-    "imagem/bloco.png",
-    "imagem/borda.png"
-};
-
-/*  Variaveis SDl */
-//  Janela
-SDL_Window *janela = NULL;
-SDL_Renderer *tela = NULL;
-//  Variaveis das imagens
-SDL_Texture *imagens[IMAGENS_NUMERO];
-//  Evento
-SDL_Event evento;
-
 /*  Estruturas */
 enum enum_imagens
 {
