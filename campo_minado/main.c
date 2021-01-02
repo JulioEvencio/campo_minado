@@ -8,7 +8,6 @@
 #include "funcoes.c"
 
 //  Funcoes
-void logica(void);
 void graficos(void);
 int preencher_matriz(void);
 void pintar_matriz(void);
@@ -117,8 +116,7 @@ int main()
             }
         }
 
-        //  Logica
-        logica();
+        /*  Logica */
 
         //  Graficos
         graficos();
@@ -133,12 +131,6 @@ int main()
     sdl2_finalizar_SDL2();
 
     return 0;
-}
-
-//  Funcao responsavel pela logica do programa
-void logica(void)
-{
-    //  Code
 }
 
 //  Funcao responsavel pelos graficos do programa
