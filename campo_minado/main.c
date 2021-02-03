@@ -18,6 +18,16 @@ int main()
     //  Matriz do campo minado
     int Matriz[MATRIZ_TAMANHO][MATRIZ_TAMANHO];
     int Matriz_auxiliar[MATRIZ_TAMANHO][MATRIZ_TAMANHO];
+
+    /*  Variaveis SDl */
+    //  Janela
+    SDL_Window *janela = NULL;
+    SDL_Renderer *tela = NULL;
+    //  Variaveis das imagens
+    SDL_Texture *imagens[IMAGENS_NUMERO];
+    //  Evento
+    SDL_Event evento;
+
     //  Vetore de string com o nome dos arquivos das imagens
     static char *imagens_arquivos[IMAGENS_NUMERO] =
     {
@@ -37,19 +47,10 @@ int main()
         "imagem/borda.png"
     };
 
-    /*  Variaveis SDl */
-    //  Janela
-    SDL_Window *janela = NULL;
-    SDL_Renderer *tela = NULL;
-    //  Variaveis das imagens
-    SDL_Texture *imagens[IMAGENS_NUMERO];
-    //  Evento
-    SDL_Event evento;
-
     //  Definindo semente para a funcao rand
     srand(time(NULL));
     //  preenchendo a matriz do campo minado
-    preencher_matriz();
+    preencher_matriz(Matriz, Matriz_auxiliar);
     //  Funcao que vai marcar quantas bombas adjacentes ha em locais vazios
     verificador_de_bombas();
 

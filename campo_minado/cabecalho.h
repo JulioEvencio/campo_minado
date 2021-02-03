@@ -41,14 +41,14 @@ enum enum_imagens
 
 /*  Funcoes */
 void carregar_imagem(SDL_Renderer *tela, SDL_Texture *imagens[], char *arquivos[]);
-void graficos(SDL_Renderer *tela);
-int preencher_matriz(char **Matriz, char **Matriz_auxiliar);
-void pintar_matriz(void);
-void pintar_imagens(int matriz, int x, int y, int comp, int alt);
-void verificador_de_bombas(void);
-void abrir_posicao(int x, int y);
-void colocar_bandeira(int x, int y);
-void clicar_mouse(void);
-void perder_jogo(void);
+void graficos(SDL_Renderer *tela, SDL_Texture **imagens, int **Matriz_auxiliar);
+int preencher_matriz(int **Matriz, int **Matriz_auxiliar);
+void pintar_matriz(SDL_Renderer *tela, SDL_Texture **imagens, int **Matriz_auxiliar);
+void pintar_imagens(SDL_Renderer *tela, SDL_Texture **imagens, int matriz, int x, int y, int comp, int alt);
+void verificador_de_bombas(int **Matriz);
+void abrir_posicao(int **Matriz, int **Matriz_auxiliar, int x, int y);
+void colocar_bandeira(int **Matriz_auxiliar, int x, int y);
+void clicar_mouse(SDL_Event *evento, int **Matriz, int **Matriz_auxiliar, int linha_mouse, int coluna_mouse);
+void perder_jogo(int **Matriz, int **Matriz_auxiliar, int linha_mouse, int coluna_mouse);
 
 #endif // CABECALHO_H_INCLUDED

@@ -13,20 +13,20 @@ void carregar_imagem(SDL_Renderer *tela, SDL_Texture *imagens[], char *arquivos[
 }
 
 //  Funcao responsavel pelos graficos do programa
-void graficos(SDL_Renderer *tela)
+void graficos(SDL_Renderer *tela, SDL_Texture **imagens, int **Matriz_auxiliar)
 {
     //  Definindo plano de fundo da janela
     sdl2_limpar_tela(tela, SDL2_BRANCO);
 
     //  Pintando matriz na tela
-    pintar_matriz();
+    pintar_matriz(tela, imagens, Matriz_auxiliar);
 
     //  Atualizando tela
     sdl2_atualizar_tela(tela);
 }
 
 //  Funcao que preenche a matriz do campo minado para que ela possa ser jogavel
-int preencher_matriz(char **Matriz, char **Matriz_auxiliar)
+int preencher_matriz(int **Matriz, int **Matriz_auxiliar)
 {
     int linha, coluna, bombas = 0;
     for(linha = 0; linha < MATRIZ_TAMANHO; linha++)
@@ -57,7 +57,7 @@ int preencher_matriz(char **Matriz, char **Matriz_auxiliar)
 }
 
 //  Funcao que pinta a matriz na tela usando imagens
-void pintar_matriz(void)
+void pintar_matriz(SDL_Renderer *tela, SDL_Texture **imagens, int **Matriz_auxiliar)
 {
     int linha, coluna, quadrado_x, quadrado_y;
     int quadrado_comp = (JANELA_COMPRIMENTO / MATRIZ_TAMANHO), quadrado_alt = (JANELA_ALTURA / MATRIZ_TAMANHO);
@@ -67,13 +67,13 @@ void pintar_matriz(void)
         {
             quadrado_x = coluna * quadrado_comp;
             quadrado_y = linha * quadrado_alt;
-            pintar_imagens(Matriz_auxiliar[linha][coluna], quadrado_x, quadrado_y, quadrado_comp, quadrado_alt);
+            pintar_imagens(tela, imagens, Matriz_auxiliar[linha][coluna], quadrado_x, quadrado_y, quadrado_comp, quadrado_alt);
         }
     }
 }
 
 //  Funcao auxiliar para pintar o campo minado na tela
-void pintar_imagens(int matriz, int x, int y, int comp, int alt)
+void pintar_imagens(SDL_Renderer *tela, SDL_Texture **imagens, int matriz, int x, int y, int comp, int alt)
 {
     //  Bandeira
     if(matriz == -3)
@@ -148,7 +148,7 @@ void pintar_imagens(int matriz, int x, int y, int comp, int alt)
 }
 
 //  Funcao que verifica quantas bombas ha nos lugares adjacentes aos locais vazios
-void verificador_de_bombas(void)
+void verificador_de_bombas(int **Matriz)
 {
     int linha, coluna, numero_de_bombas;
     for(linha = 0; linha < MATRIZ_TAMANHO; linha++)
@@ -201,7 +201,7 @@ void verificador_de_bombas(void)
 }
 
 //  Funcao que mostra o que ha dentro da posicao clicada
-void abrir_posicao(int x, int y)
+void abrir_posicao(int **Matriz, int **Matriz_auxiliar, int x, int y)
 {
     //  Verificando se o local esta marcado com bandeira
     if(Matriz_auxiliar[x][y] != -3)
@@ -210,13 +210,13 @@ void abrir_posicao(int x, int y)
         //  Verificando se o usuario perdeu
         if(Matriz[x][y] == 9)
         {
-            perder_jogo();
+            perder_jogo(Matriz, Matriz_auxiliar, x, y);
         }
     }
 }
 
 //  Funcao que coloca ou retira a bandeira
-void colocar_bandeira(int x, int y)
+void colocar_bandeira(int **Matriz_auxiliar, int x, int y)
 {
     //  Verificando se o local e valido
     if(Matriz_auxiliar[x][y] == -2)
@@ -234,21 +234,21 @@ void colocar_bandeira(int x, int y)
 }
 
 //  Funcao que ativa quando alguem clicar com o mouse
-void clicar_mouse(void)
+void clicar_mouse(SDL_Event *evento, int **Matriz, int **Matriz_auxiliar, int linha_mouse, int coluna_mouse)
 {
     //  Verificando se o botao esquerdo do mouse foi pressionado
-    if(evento.button.button == SDL_BUTTON_LEFT)
+    if(evento->button.button == SDL_BUTTON_LEFT)
     {
-        abrir_posicao(linha_mouse, coluna_mouse);
+        abrir_posicao(Matriz, Matriz_auxiliar, linha_mouse, coluna_mouse);
     }
     //  Verificando se o botao direito do mouse foi pressionado
-    if(evento.button.button == SDL_BUTTON_RIGHT)
+    if(evento->button.button == SDL_BUTTON_RIGHT)
     {
-        colocar_bandeira(linha_mouse, coluna_mouse);
+        colocar_bandeira(Matriz, linha_mouse, coluna_mouse);
     }
 }
 
-void perder_jogo(void)
+void perder_jogo(int **Matriz, int **Matriz_auxiliar, int linha_mouse, int coluna_mouse)
 {
     int linha, coluna;
     //  Deixando as matrizes iguais para exibir o gabarito do jogo
