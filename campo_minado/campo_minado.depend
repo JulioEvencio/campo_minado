@@ -1,9 +1,13 @@
 # depslib dependency file v1.0
 <<<<<<< HEAD
+<<<<<<< HEAD
 1603779512 source:/home/evencio_20/julio/programacao/c/github/campo_minado/campo_minado/main.c
 =======
 1603774135 source:/home/evencio_20/julio/programacao/c/github/campo_minado/campo_minado/main.c
 >>>>>>> parent of 58ec61b... Adicionada mina vermelha
+=======
+1603775765 source:/home/evencio_20/julio/programacao/c/github/campo_minado/campo_minado/main.c
+>>>>>>> parent of 2fbed94... Inserido botão para reiniciar o jogo
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
