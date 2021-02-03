@@ -41,5 +41,14 @@ enum enum_imagens
 
 /*  Funcoes */
 void carregar_imagem(SDL_Renderer *tela, SDL_Texture *imagens[], char *arquivos[]);
+void graficos(SDL_Renderer *tela);
+int preencher_matriz(void);
+void pintar_matriz(void);
+void pintar_imagens(int matriz, int x, int y, int comp, int alt);
+void verificador_de_bombas(void);
+void abrir_posicao(int x, int y);
+void colocar_bandeira(int x, int y);
+void clicar_mouse(void);
+void perder_jogo(void);
 
 #endif // CABECALHO_H_INCLUDED
