@@ -1,13 +1,13 @@
 /*
     Campo minado
 */
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdbool.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
-<<<<<<< HEAD
-//  Bibliotecas
-#include "cabecalho.h"
-#include "sdl2/sdl2.c"
-#include "funcoes.c"
-=======
 //  Variaveis
 const int comprimento = 640;
 const int altura = 640;
@@ -47,79 +47,32 @@ SDL_Texture *seis = NULL;
 SDL_Texture *sete = NULL;
 SDL_Texture *oito = NULL;
 SDL_Texture *bomba = NULL;
+SDL_Texture *bomba_explodida = NULL;
 SDL_Texture *bandeira = NULL;
 SDL_Texture *bloco = NULL;
 SDL_Texture *borda = NULL;
 
 SDL_Event evento;
->>>>>>> parent of 58ec61b... Adicionada mina vermelha
 
 int main()
-{   
-    /*  Variaveis */
-    //  Jogo
-    bool loop = true;
-    //  Mouse
-    int linha_mouse;
-    int coluna_mouse;
-    //  Matriz do campo minado
-    int Matriz[MATRIZ_TAMANHO][MATRIZ_TAMANHO];
-    int Matriz_auxiliar[MATRIZ_TAMANHO][MATRIZ_TAMANHO];
-
-    /*  Variaveis SDl */
-    //  Janela
-    SDL_Window *janela = NULL;
-    SDL_Renderer *tela = NULL;
-    //  Variaveis das imagens
-    SDL_Texture *imagens[IMAGENS_NUMERO];
-    //  Evento
-    SDL_Event evento;
-
-    //  Vetore de string com o nome dos arquivos das imagens
-    static char *imagens_arquivos[IMAGENS_NUMERO] =
-    {
-        "imagem/zero.png",
-        "imagem/um.png",
-        "imagem/dois.png",
-        "imagem/tres.png",
-        "imagem/quatro.png",
-        "imagem/cinco.png",
-        "imagem/seis.png",
-        "imagem/sete.png",
-        "imagem/oito.png",
-        "imagem/mina.png",
-        "imagem/mina_vermelha.png",
-        "imagem/bandeira.png",
-        "imagem/bloco.png",
-        "imagem/borda.png"
-    };
-
+{
     //  Definindo semente para a funcao rand
     srand(time(NULL));
     //  preenchendo a matriz do campo minado
-    preencher_matriz(Matriz, Matriz_auxiliar);
+    preencher_matriz();
     //  Funcao que vai marcar quantas bombas adjacentes ha em locais vazios
     verificador_de_bombas();
 
     //  Iniciando SDL e SDL IMAGE
-    sdl2_iniciar_SDL2();
+    SDL_Init(SDL_INIT_VIDEO);
+    IMG_Init(IMG_INIT_PNG);
 
-    //  Criando janela
-    if((janela = sdl2_criar_janela(JANELA_NOME, JANELA_COMPRIMENTO, JANELA_ALTURA)) == NULL)
-    {
-        printf("Erro ao criar janela! \n");
-        exit(1);
-    }
-
-    //  Criando tela
-    if((tela = sdl2_criar_tela(janela)) == NULL)
-    {
-        printf("Erro ao criar tela \n");
-        exit(1);
-    }
+    //  Criando janela e tela
+    janela = SDL_CreateWindow("Campo Minado", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, comprimento, altura, 0);
+    tela = SDL_CreateRenderer(janela, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     //  Carregar imagens em suas variaveis
-    carregar_imagem(tela, imagens, imagens_arquivos);
+    carregar_imagem();
 
     //  Loop do jogo
     while(loop)
@@ -133,34 +86,43 @@ int main()
             {
                 loop = false;
             }
+            //  Verificando se  o usuario apertou uma tecla
+            if(evento.type == SDL_KEYDOWN)
+            {
+                //  Tecla Esc
+                if(evento.key.keysym.sym == SDLK_ESCAPE)
+                {
+                    preencher_matriz();
+                    verificador_de_bombas();
+                }
+            }
             //  Verificando se o usuario clicou
             if(evento.type == SDL_MOUSEBUTTONDOWN)
             {
                 //  Pegando a posicao do mouse
-                coluna_mouse = evento.motion.x / (JANELA_COMPRIMENTO / MATRIZ_TAMANHO);
-                linha_mouse = evento.motion.y / (JANELA_ALTURA / MATRIZ_TAMANHO);
+                coluna_mouse = evento.motion.x / (comprimento / 10);
+                linha_mouse = evento.motion.y / (altura / 10);
                 clicar_mouse();
             }
         }
 
-        /*  Logica */
+        //  Logica
+        logica();
 
         //  Graficos
         graficos();
 
         //  Delay
-        SDL_Delay(DELAY);
+        SDL_Delay(60/1000);
     }
 
     //  Finalizando SDL e SDL IMAGE
-    sdl2_fechar_tela(tela);
-    sdl2_fechar_janela(janela);
-    sdl2_finalizar_SDL2();
+    SDL_DestroyRenderer(tela);
+    SDL_DestroyWindow(janela);
+    IMG_Quit();
+    SDL_Quit();
 
     return 0;
-<<<<<<< HEAD
-}
-=======
 }
 
 //  Funcao que cria texturas das imagens e as colocam em suas devidas variaveis
@@ -214,6 +176,11 @@ void carregar_imagem(void)
     //  Bomba
     imagem = IMG_Load("imagem/mina.png");
     bomba = SDL_CreateTextureFromSurface(tela, imagem);
+    SDL_FreeSurface(imagem);
+
+    //  Bomba Explodida
+    imagem = IMG_Load("imagem/mina_vermelha.png");
+    bomba_explodida = SDL_CreateTextureFromSurface(tela, imagem);
     SDL_FreeSurface(imagem);
 
     //  Bandeira
@@ -319,6 +286,12 @@ void pintar_imagens(int matriz, int x, int y, int comp, int alt)
     {
         SDL_Rect borda_img = {x, y, comp, alt};
         SDL_RenderCopy(tela, borda, NULL, &borda_img);
+    }
+    //  Bomba Explodida
+    if(matriz == -4)
+    {
+        SDL_Rect bomba_explodida_img = {x, y, comp, alt};
+        SDL_RenderCopy(tela, bomba_explodida, NULL, &bomba_explodida_img);
     }
     //  Bombas
     if(matriz == 9)
@@ -491,8 +464,8 @@ void perder_jogo(void)
     {
         for(coluna = 0; coluna < 10; coluna++)
         {
+            Matriz[linha_mouse][coluna_mouse] = -4;
             Matriz_auxiliar[linha][coluna] = Matriz[linha][coluna];
         }
     }
 }
->>>>>>> parent of 58ec61b... Adicionada mina vermelha
