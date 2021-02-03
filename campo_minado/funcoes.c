@@ -26,7 +26,7 @@ void graficos(SDL_Renderer *tela)
 }
 
 //  Funcao que preenche a matriz do campo minado para que ela possa ser jogavel
-int preencher_matriz(void)
+int preencher_matriz(char **Matriz, char **Matriz_auxiliar)
 {
     int linha, coluna, bombas = 0;
     for(linha = 0; linha < MATRIZ_TAMANHO; linha++)

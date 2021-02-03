@@ -42,7 +42,7 @@ enum enum_imagens
 /*  Funcoes */
 void carregar_imagem(SDL_Renderer *tela, SDL_Texture *imagens[], char *arquivos[]);
 void graficos(SDL_Renderer *tela);
-int preencher_matriz(void);
+int preencher_matriz(char **Matriz, char **Matriz_auxiliar);
 void pintar_matriz(void);
 void pintar_imagens(int matriz, int x, int y, int comp, int alt);
 void verificador_de_bombas(void);
