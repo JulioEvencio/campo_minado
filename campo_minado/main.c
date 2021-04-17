@@ -9,10 +9,12 @@
 #include "tabuleiro.h"
 
 int main(void) {
-    int loop = 1; // Deixando true o loop
+    int loop = 1;
     int linha_mouse;
     int coluna_mouse;
+
     Tabuleiro *tabuleiro = NULL;
+
     SDL_Window *janela = NULL;
     SDL_Renderer *tela = NULL;
     SDL_Texture *textura[TEXTURA_QUANTIDADE];
@@ -119,7 +121,7 @@ int main(void) {
             }
         }
 
-        SDL_SetRenderDrawColor(tela, 155, 155, 155, 255);
+        SDL_SetRenderDrawColor(tela, 255, 255, 255, 255);
         SDL_RenderClear(tela);
 
         exibir_graficos(tela, textura, &tabuleiro);
