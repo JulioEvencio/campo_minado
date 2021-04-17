@@ -5,6 +5,8 @@
 #ifndef CABECALHO_H_INCLUDED
 #define CABECALHO_H_INCLUDED
 
+#include "tabuleiro.h"
+
 #define JANELA_NOME "Campo Minado"
 #define JANELA_LARGURA 640
 #define JANELA_ALTURA 640
@@ -51,5 +53,6 @@ static char *textura_arquivo[TEXTURA_QUANTIDADE] = {
 
 int carregar_texturas(SDL_Renderer *tela, SDL_Texture *textura[]);
 void liberar_texturas(SDL_Texture *textura[]);
+void exibir_graficos(SDL_Renderer *tela, SDL_Texture *textura[], Tabuleiro **tabuleiro);
 
 #endif

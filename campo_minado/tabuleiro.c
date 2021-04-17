@@ -1,9 +1,6 @@
 #include <stdlib.h>
 #include "tabuleiro.h"
 
-#define MATRIZ_LINHA 10
-#define MATRIZ_COLUNA 10
-
 struct Tabuleiro {
     int matriz[MATRIZ_LINHA][MATRIZ_COLUNA];
     int matriz_auxiliar[MATRIZ_LINHA][MATRIZ_COLUNA];
@@ -108,4 +105,20 @@ void verificador_de_bombas(Tabuleiro **tabuleiro) {
         }
 
     }
+}
+
+int obter_valor(Tabuleiro **tabuleiro, int linha, int coluna) {
+    if (linha < 0 || linha >= MATRIZ_LINHA) return -1;
+    if (coluna < 0 || coluna >= MATRIZ_COLUNA) return -1;
+
+    return (*tabuleiro)->matriz_auxiliar[linha][coluna];
+}
+
+int alterar_valor(Tabuleiro **tabuleiro, int valor, int linha, int coluna) {
+    if (linha < 0 || linha >= MATRIZ_LINHA) return -1;
+    if (coluna < 0 || coluna >= MATRIZ_COLUNA) return -1;
+
+    (*tabuleiro)->matriz[linha][coluna] = valor;
+
+    return 0;
 }

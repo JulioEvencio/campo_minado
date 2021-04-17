@@ -2,6 +2,7 @@
     Campo Minado versao 2.0
 */
 #include <stdio.h>
+#include <time.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "cabecalho.h"
@@ -14,6 +15,8 @@ int main(void) {
     SDL_Renderer *tela = NULL;
     SDL_Texture *textura[TEXTURA_QUANTIDADE];
     SDL_Event evento;
+
+    srand(time(NULL));
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         puts("Erro ao inicializar SDL 2...");
@@ -95,6 +98,8 @@ int main(void) {
 
         SDL_SetRenderDrawColor(tela, 155, 155, 155, 255);
         SDL_RenderClear(tela);
+
+        exibir_graficos(tela, textura, &tabuleiro);
 
         SDL_RenderPresent(tela);
 
