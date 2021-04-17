@@ -1,0 +1,3 @@
+/*
+    Implementacao de funcoes genericas
+*/

@@ -1,0 +1,4 @@
+/*
+    Constantes e prototipos de funcoes
+    genericas
+*/
