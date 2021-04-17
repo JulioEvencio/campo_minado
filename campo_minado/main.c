@@ -5,9 +5,11 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "cabecalho.h"
+#include "tabuleiro.h"
 
 int main(void) {
     int loop = 1; // Deixando true o loop
+    Tabuleiro *tabuleiro = NULL;
     SDL_Window *janela = NULL;
     SDL_Renderer *tela = NULL;
     SDL_Texture *textura[TEXTURA_QUANTIDADE];
@@ -63,6 +65,16 @@ int main(void) {
         return 1;
     }
 
+    if (criar_tabuleiro(&tabuleiro)) {
+        puts("Erro ao criar tabuleiro...");
+        liberar_texturas(textura);
+        SDL_DestroyRenderer(tela);
+        SDL_DestroyWindow(janela);
+        IMG_Quit();
+        SDL_Quit();
+        return 1;
+    }
+
     while (loop) {
         while (SDL_PollEvent(&evento) != 0) {
             if (evento.type == SDL_QUIT) {
@@ -78,6 +90,7 @@ int main(void) {
         SDL_Delay(JANELA_DELAY);
     }
 
+    liberar_tabuleiro(&tabuleiro);
     liberar_texturas(textura);
     SDL_DestroyRenderer(tela);
     SDL_DestroyWindow(janela);
