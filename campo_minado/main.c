@@ -10,6 +10,7 @@ int main(void) {
     int loop = 1; // Deixando true o loop
     SDL_Window *janela = NULL;
     SDL_Renderer *tela = NULL;
+    SDL_Texture *textura[TEXTURA_QUANTIDADE];
     SDL_Event evento;
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -53,6 +54,15 @@ int main(void) {
         return 1;
     }
 
+    if (carregar_texturas(tela, textura)) {
+        puts("Erro ao carregar texturas...");
+        SDL_DestroyRenderer(tela);
+        SDL_DestroyWindow(janela);
+        IMG_Quit();
+        SDL_Quit();
+        return 1;
+    }
+
     while (loop) {
         while (SDL_PollEvent(&evento) != 0) {
             if (evento.type == SDL_QUIT) {
@@ -68,6 +78,7 @@ int main(void) {
         SDL_Delay(JANELA_DELAY);
     }
 
+    liberar_texturas(textura);
     SDL_DestroyRenderer(tela);
     SDL_DestroyWindow(janela);
     IMG_Quit();
