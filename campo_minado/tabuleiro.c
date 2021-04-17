@@ -34,7 +34,7 @@ int preencher_tabuleiro(Tabuleiro **tabuleiro) {
 
             } else {
 
-                (*tabuleiro)->matriz_auxiliar[linha][coluna] = TABULEIRO_LOCAL_VAZIO;
+                (*tabuleiro)->matriz_auxiliar[linha][coluna] = TABULEIRO_SEM_BOMBA;
 
                 if((rand() % 10) < 3) {
                     (*tabuleiro)->matriz[linha][coluna] = TABULEIRO_BOMBA;

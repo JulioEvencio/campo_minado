@@ -5,7 +5,6 @@
 #define MATRIZ_COLUNA 10
 #define TABULEIRO_BOMBA 9
 #define TABULEIRO_SEM_BOMBA 12
-#define TABULEIRO_LOCAL_VAZIO 12
 #define TABULEIRO_BORDA 13
 
 typedef struct Tabuleiro Tabuleiro;
