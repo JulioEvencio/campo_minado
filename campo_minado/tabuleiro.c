@@ -58,9 +58,11 @@ int preencher_tabuleiro(Tabuleiro **tabuleiro) {
 
 void verificador_de_bombas(Tabuleiro **tabuleiro) {
     int numero_de_bombas;
+
     for (int linha = 0; linha < MATRIZ_LINHA; linha++) {
 
         for (int coluna = 0; coluna < MATRIZ_COLUNA; coluna++) {
+
             numero_de_bombas = 0;
 
             //  Divisao 1

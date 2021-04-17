@@ -75,6 +75,17 @@ int main(void) {
         return 1;
     }
 
+    if (preencher_tabuleiro(&tabuleiro)) {
+        puts("Erro ao preencher tabuleiro...");
+        liberar_tabuleiro(&tabuleiro);
+        liberar_texturas(textura);
+        SDL_DestroyRenderer(tela);
+        SDL_DestroyWindow(janela);
+        IMG_Quit();
+        SDL_Quit();
+        return 1;
+    }
+
     while (loop) {
         while (SDL_PollEvent(&evento) != 0) {
             if (evento.type == SDL_QUIT) {
