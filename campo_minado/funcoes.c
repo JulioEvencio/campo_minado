@@ -66,7 +66,7 @@ int clicar_mouse(SDL_Event *evento, Tabuleiro **tabuleiro, int linha_mouse, int 
     }
 
     if (evento->button.button == SDL_BUTTON_RIGHT) {
-        //colocar_bandeira(linha_mouse, coluna_mouse);
+        colocar_bandeira(tabuleiro, linha_mouse, coluna_mouse);
     }
 
     return 0;

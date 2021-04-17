@@ -139,3 +139,13 @@ void perder_jogo(Tabuleiro **tabuleiro, int linha_explodida, int coluna_explodid
         }
     }
 }
+
+void colocar_bandeira(Tabuleiro **tabuleiro, int linha, int coluna) {
+    if ((*tabuleiro)->matriz_auxiliar[linha][coluna] == TABULEIRO_BLOCO) {
+        (*tabuleiro)->matriz_auxiliar[linha][coluna] = TABULEIRO_BANDEIRA;
+    } else {
+        if ((*tabuleiro)->matriz_auxiliar[linha][coluna] == TABULEIRO_BANDEIRA) {
+            (*tabuleiro)->matriz_auxiliar[linha][coluna] = TABULEIRO_BLOCO;
+        }
+    }
+}

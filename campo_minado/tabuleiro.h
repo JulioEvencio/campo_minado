@@ -8,6 +8,7 @@
 #define TABULEIRO_BORDA 13
 #define TABULEIRO_BANDEIRA 11
 #define TABULEIRO_BOMBO_EXPLODIDA 10
+#define TABULEIRO_BLOCO 12
 
 typedef struct Tabuleiro Tabuleiro;
 
@@ -16,5 +17,6 @@ void liberar_tabuleiro(Tabuleiro **tabuleiro);
 int preencher_tabuleiro(Tabuleiro **tabuleiro);
 int obter_valor(Tabuleiro **tabuleiro, int linha, int coluna);
 int abrir_posicao(Tabuleiro **tabuleiro, int linha, int coluna);
+void colocar_bandeira(Tabuleiro **tabuleiro, int linha, int coluna);
 
 #endif
