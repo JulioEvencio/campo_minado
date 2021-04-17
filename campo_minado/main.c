@@ -102,6 +102,21 @@ int main(void) {
                 linha_mouse = evento.motion.y / (JANELA_ALTURA / MATRIZ_COLUNA);
                 if (clicar_mouse(&evento, &tabuleiro, linha_mouse, coluna_mouse)) return 1;
             }
+
+            if (evento.type == SDL_KEYDOWN) {
+                if (evento.key.keysym.sym == SDLK_ESCAPE) {
+                    if (preencher_tabuleiro(&tabuleiro)) {
+                        puts("Erro ao preencher tabuleiro...");
+                        liberar_tabuleiro(&tabuleiro);
+                        liberar_texturas(textura);
+                        SDL_DestroyRenderer(tela);
+                        SDL_DestroyWindow(janela);
+                        IMG_Quit();
+                        SDL_Quit();
+                        return 1;
+                    }
+                }
+            }
         }
 
         SDL_SetRenderDrawColor(tela, 155, 155, 155, 255);
