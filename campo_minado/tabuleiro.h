@@ -7,6 +7,7 @@
 #define TABULEIRO_SEM_BOMBA 12
 #define TABULEIRO_BORDA 13
 #define TABULEIRO_BANDEIRA 11
+#define TABULEIRO_BOMBO_EXPLODIDA 10
 
 typedef struct Tabuleiro Tabuleiro;
 

@@ -7,6 +7,7 @@ struct Tabuleiro {
 };
 
 void verificador_de_bombas(Tabuleiro **tabuleiro);
+void perder_jogo(Tabuleiro **tabuleiro, int linha_explodida, int coluna_explodida);
 
 int criar_tabuleiro(Tabuleiro **tabuleiro) {
     *tabuleiro = malloc(sizeof **tabuleiro);
@@ -122,9 +123,19 @@ int abrir_posicao(Tabuleiro **tabuleiro, int linha, int coluna) {
         (*tabuleiro)->matriz_auxiliar[linha][coluna] = (*tabuleiro)->matriz[linha][coluna];
 
         if ((*tabuleiro)->matriz[linha][coluna] == TABULEIRO_BOMBA) {
-            //  Perder jogo
+            perder_jogo(tabuleiro, linha, coluna);
         }
     }
 
     return 0;
+}
+
+void perder_jogo(Tabuleiro **tabuleiro, int linha_explodida, int coluna_explodida) {
+    (*tabuleiro)->matriz[linha_explodida][coluna_explodida] = TABULEIRO_BOMBO_EXPLODIDA;
+
+    for (int linha = 0; linha < MATRIZ_LINHA; linha++) {
+        for (int coluna = 0; coluna < MATRIZ_COLUNA; coluna++) {
+            (*tabuleiro)->matriz_auxiliar[linha][coluna] = (*tabuleiro)->matriz[linha][coluna];
+        }
+    }
 }
