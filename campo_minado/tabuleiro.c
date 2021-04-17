@@ -9,6 +9,8 @@ struct Tabuleiro {
     int matriz_auxiliar[MATRIZ_LINHA][MATRIZ_COLUNA];
 };
 
+void verificador_de_bombas(Tabuleiro **tabuleiro);
+
 int criar_tabuleiro(Tabuleiro **tabuleiro) {
     *tabuleiro = malloc(sizeof **tabuleiro);
 
@@ -22,8 +24,6 @@ void liberar_tabuleiro(Tabuleiro **tabuleiro) {
 }
 
 int preencher_tabuleiro(Tabuleiro **tabuleiro) {
-    int bombas = 0;
-
     if (*tabuleiro == NULL) return -1;
 
     for (int linha = 0; linha < MATRIZ_LINHA; linha++) {
@@ -41,7 +41,6 @@ int preencher_tabuleiro(Tabuleiro **tabuleiro) {
 
                 if((rand() % 10) < 3) {
                     (*tabuleiro)->matriz[linha][coluna] = TABULEIRO_BOMBA;
-                    bombas++;
                 } else {
                     (*tabuleiro)->matriz[linha][coluna] = TABULEIRO_SEM_BOMBA;
                 }
@@ -52,5 +51,59 @@ int preencher_tabuleiro(Tabuleiro **tabuleiro) {
 
     }
 
-    return bombas;
+    verificador_de_bombas(tabuleiro);
+
+    return 0;
+}
+
+void verificador_de_bombas(Tabuleiro **tabuleiro) {
+    int numero_de_bombas;
+    for (int linha = 0; linha < MATRIZ_LINHA; linha++) {
+
+        for (int coluna = 0; coluna < MATRIZ_COLUNA; coluna++) {
+            numero_de_bombas = 0;
+
+            //  Divisao 1
+            if ((*tabuleiro)->matriz[linha][coluna - 1] == TABULEIRO_BOMBA) {
+                numero_de_bombas++;
+            }
+
+            if ((*tabuleiro)->matriz[linha][coluna + 1] == TABULEIRO_BOMBA) {
+                numero_de_bombas++;
+            }
+
+            //  Divisao 2
+            if ((*tabuleiro)->matriz[linha - 1][coluna - 1] == TABULEIRO_BOMBA) {
+                numero_de_bombas++;
+            }
+
+            if ((*tabuleiro)->matriz[linha - 1][coluna] == TABULEIRO_BOMBA) {
+                numero_de_bombas++;
+            }
+
+            if ((*tabuleiro)->matriz[linha - 1][coluna + 1] == TABULEIRO_BOMBA) {
+                numero_de_bombas++;
+            }
+
+            //  Divisao 3
+            if ((*tabuleiro)->matriz[linha + 1][coluna - 1] == TABULEIRO_BOMBA) {
+                numero_de_bombas++;
+            }
+
+            if ((*tabuleiro)->matriz[linha + 1][coluna] == TABULEIRO_BOMBA) {
+                numero_de_bombas++;
+            }
+
+            if ((*tabuleiro)->matriz[linha + 1][coluna + 1] == TABULEIRO_BOMBA) {
+                numero_de_bombas++;
+            }
+
+            //  Adicionando numeros de bombas na posicao vazia
+            if ((*tabuleiro)->matriz[linha][coluna] == TABULEIRO_SEM_BOMBA) {
+                (*tabuleiro)->matriz[linha][coluna] = numero_de_bombas;
+            }
+
+        }
+
+    }
 }
