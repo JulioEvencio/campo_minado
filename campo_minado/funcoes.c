@@ -59,3 +59,15 @@ void exibir_textura(SDL_Renderer *tela, SDL_Texture *textura[], int valor, int x
 
     SDL_RenderCopy(tela, textura[valor], NULL, &retangulo);
 }
+
+int clicar_mouse(SDL_Event *evento, Tabuleiro **tabuleiro, int linha_mouse, int coluna_mouse) {
+    if (evento->button.button == SDL_BUTTON_LEFT) {
+        if (abrir_posicao(tabuleiro, linha_mouse, coluna_mouse)) return -1;
+    }
+
+    if (evento->button.button == SDL_BUTTON_RIGHT) {
+        //colocar_bandeira(linha_mouse, coluna_mouse);
+    }
+
+    return 0;
+}

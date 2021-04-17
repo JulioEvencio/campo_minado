@@ -10,6 +10,8 @@
 
 int main(void) {
     int loop = 1; // Deixando true o loop
+    int linha_mouse;
+    int coluna_mouse;
     Tabuleiro *tabuleiro = NULL;
     SDL_Window *janela = NULL;
     SDL_Renderer *tela = NULL;
@@ -93,6 +95,12 @@ int main(void) {
         while (SDL_PollEvent(&evento) != 0) {
             if (evento.type == SDL_QUIT) {
                 loop = SAIR;
+            }
+
+            if (evento.type == SDL_MOUSEBUTTONDOWN) {
+                coluna_mouse = evento.motion.x / (JANELA_LARGURA / MATRIZ_LINHA);
+                linha_mouse = evento.motion.y / (JANELA_ALTURA / MATRIZ_COLUNA);
+                if (clicar_mouse(&evento, &tabuleiro, linha_mouse, coluna_mouse)) return 1;
             }
         }
 

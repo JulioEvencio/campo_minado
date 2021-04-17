@@ -114,11 +114,17 @@ int obter_valor(Tabuleiro **tabuleiro, int linha, int coluna) {
     return (*tabuleiro)->matriz_auxiliar[linha][coluna];
 }
 
-int alterar_valor(Tabuleiro **tabuleiro, int valor, int linha, int coluna) {
+int abrir_posicao(Tabuleiro **tabuleiro, int linha, int coluna) {
     if (linha < 0 || linha >= MATRIZ_LINHA) return -1;
     if (coluna < 0 || coluna >= MATRIZ_COLUNA) return -1;
 
-    (*tabuleiro)->matriz[linha][coluna] = valor;
+    if ((*tabuleiro)->matriz_auxiliar[linha][coluna] != TABULEIRO_BANDEIRA) {
+        (*tabuleiro)->matriz_auxiliar[linha][coluna] = (*tabuleiro)->matriz[linha][coluna];
+
+        if ((*tabuleiro)->matriz[linha][coluna] == TABULEIRO_BOMBA) {
+            //  Perder jogo
+        }
+    }
 
     return 0;
 }

@@ -54,5 +54,6 @@ static char *textura_arquivo[TEXTURA_QUANTIDADE] = {
 int carregar_texturas(SDL_Renderer *tela, SDL_Texture *textura[]);
 void liberar_texturas(SDL_Texture *textura[]);
 void exibir_graficos(SDL_Renderer *tela, SDL_Texture *textura[], Tabuleiro **tabuleiro);
+int clicar_mouse(SDL_Event *evento, Tabuleiro **tabuleiro, int linha_mouse, int coluna_mouse);
 
 #endif
