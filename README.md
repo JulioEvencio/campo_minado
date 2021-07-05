@@ -18,7 +18,3 @@ Imagem 2
 Imagem 3
 
 ![Captura de tela de 2020-10-27 01-38-02](https://user-images.githubusercontent.com/65574850/97260205-3a766580-17fb-11eb-8acd-2d32b36c60f6.png)
-
-
-
-**Em desenvolvimeto**
